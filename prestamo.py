@@ -25,3 +25,11 @@ class Prestamo:
             print(
                 f"Devuelto: {self.fecha_devolucion.strftime('%d-%m-%Y %H:%M')}"
             )  
+
+    def to_dict(self):
+        return {
+            "id_libro": self.libro.id_libro,
+            "id_usuario": self.usuario.id_usuario,
+            "fecha_prestamo": self.fecha_prestamo.isoformat(),
+            "fecha_devolucion": self.fecha_devolucion.isoformat() if self.fecha_devolucion else None
+        }

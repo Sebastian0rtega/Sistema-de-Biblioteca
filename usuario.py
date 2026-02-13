@@ -16,3 +16,19 @@ class Usuario:
     def mostrar_info(self):
         print(f"[{self.id_usuario}] {self.nombre} - {self.email}")
         print(f"Libros prestados: {len(self.libros_pretados)}")
+    
+    def to_dict(self):
+        return {
+            "id_usuario": self.id_usuario,
+            "nombre": self.nombre,
+            "email": self.email,
+            "libros_prestados": [l.id_libro for l in self.libros_prestados]
+        }
+
+    @staticmethod
+    def from_dict(data):
+        return Usuario(
+            data["id_usuario"],
+            data["nombre"],
+            data["email"]
+        )

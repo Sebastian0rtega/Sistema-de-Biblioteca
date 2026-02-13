@@ -18,3 +18,23 @@ class Libro:
     def mostrar_info(self):
         estado ="Disponible" if self.disponible else "Prestado"
         print(f"[{self.id_libro}] {self.titulo} - {self.autor} ({self.fecha_creacion}) | {estado}")
+
+    def to_dict(self):
+        return {
+            "id_libro": self.id_libro,
+            "titulo": self.titulo,
+            "autor": self.autor,
+            "fecha_creacion": self.fecha_creacion,
+            "disponible": self.disponible
+        }
+
+    @staticmethod
+    def from_dict(data):
+        libro = Libro(
+            data["id_libro"],
+            data["titulo"],
+            data["autor"],
+            data["fecha_creacion"]
+        )
+        libro.disponible = data["disponible"]
+        return libro

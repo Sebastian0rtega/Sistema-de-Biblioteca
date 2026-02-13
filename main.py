@@ -14,7 +14,7 @@ def mostrar_menu():
 
 def main():
     biblioteca = Biblioteca()
-
+    biblioteca.cargar_datos()
 #se dejan lirbos de ejemeplo y usuarios inventados
     biblioteca.agregar_libro(Libro(1, "1984", "George Orwell", 1949))
     biblioteca.agregar_libro(Libro(2, "El Hobbit", "J.R.R. Tolkien", 1937))
@@ -55,7 +55,7 @@ def main():
                 biblioteca.devolver_libro(id_libro, id_usuario)
             except ValueError:
                 print("Datos inválidos")
-                
+
         elif opcion == "5":
             biblioteca.listar_prestamos_activos()
 
@@ -63,7 +63,8 @@ def main():
             biblioteca.listar_prestamos_devueltos()
 
         elif opcion == "7":
-            print("Saliendo del sistema...")
+            biblioteca.guardar_datos()
+            print("Datos guardados. Saliendo del sistema...")
             break
 
         else:
