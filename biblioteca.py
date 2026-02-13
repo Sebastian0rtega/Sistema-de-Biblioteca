@@ -66,3 +66,19 @@ class Biblioteca:
                 print("Libro devuelto correctamente")
                 return
         print("No se encontró el préstamo")
+
+    def listar_prestamos_activos(self):
+        activos = [p for p in self.prestamos if p.esta_activo()]
+        if not activos:
+            print("No hay préstamos activos")
+            return
+        for prestamo in activos:
+            prestamo.mostrar_info()
+
+    def listar_prestamos_devueltos(self):
+        devueltos = [p for p in self.prestamos if not p.esta_activo()]
+        if not devueltos:
+            print("No hay préstamos devueltos")
+            return
+        for prestamo in devueltos:
+            prestamo.mostrar_info()

@@ -8,7 +8,9 @@ def mostrar_menu():
     print("2. Registrar usuario")
     print("3. Prestar libro")
     print("4. Devolver libro")
-    print("5. Salir")
+    print("5. Ver préstamos activos")
+    print("6. Ver préstamos devueltos")
+    print("7. Salir")
 
 def main():
     biblioteca = Biblioteca()
@@ -53,8 +55,14 @@ def main():
                 biblioteca.devolver_libro(id_libro, id_usuario)
             except ValueError:
                 print("Datos inválidos")
-
+                
         elif opcion == "5":
+            biblioteca.listar_prestamos_activos()
+
+        elif opcion == "6":
+            biblioteca.listar_prestamos_devueltos()
+
+        elif opcion == "7":
             print("Saliendo del sistema...")
             break
 
