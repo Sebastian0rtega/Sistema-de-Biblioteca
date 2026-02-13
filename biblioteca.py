@@ -1,6 +1,7 @@
 from prestamo import Prestamo
 from datetime import datetime
 import json
+import os
 from libro import Libro
 from usuario import Usuario
 
@@ -100,31 +101,31 @@ class Biblioteca:
         with open("data/prestamos.json", "w", encoding="utf-8") as f:
             json.dump([p.to_dict() for p in self.prestamos], f, indent=4)
 
+
+
+
     def cargar_datos(self):
-        try:
-            with open("data/libros.json", "r", encoding="utf-8") as f:
+        if os.path.exists("libros.json") and os.path.getsize("libros.json") > 0:
+            with open("libros.json", "r", encoding="utf-8") as f:
                 libros_data = json.load(f)
-                self.libros = [Libro.from_dict(l) for l in libros_data]
-        except FileNotFoundError:
-            pass
+                for l in libros_data:
+                    libro = Libro(
+                        l["id_libro"],
+                        l["titulo"],
+                        l["autor"],
+                        l["fecha_creacion"]
+                    )
+                    libro.disponible = l["disponible"]
+                    self.libros.append(libro)
 
-        try:
-            with open("data/usuarios.json", "r", encoding="utf-8") as f:
+        if os.path.exists("usuarios.json") and os.path.getsize("usuarios.json") > 0:
+            with open("usuarios.json", "r", encoding="utf-8") as f:
                 usuarios_data = json.load(f)
-                self.usuarios = [Usuario.from_dict(u) for u in usuarios_data]
-        except FileNotFoundError:
-            pass
+                for u in usuarios_data:
+                    usuario = Usuario(u["id_usuario"], u["nombre"], u["email"])
+                    self.usuarios.append(usuario)
 
-        try:
+        if os.path.exists("prestamos.json") and os.path.getsize("prestamos.json") > 0:
             with open("data/prestamos.json", "r", encoding="utf-8") as f:
-                prestamos_data = json.load(f)
-                for p in prestamos_data:
-                    libro = next(l for l in self.libros if l.id_libro == p["id_libro"])
-                    usuario = next(u for u in self.usuarios if u.id_usuario == p["id_usuario"])
-                    prestamo = Prestamo(libro, usuario)
-                    prestamo.fecha_prestamo = datetime.fromisoformat(p["fecha_prestamo"])
-                    if p["fecha_devolucion"]:
-                        prestamo.fecha_devolucion = datetime.fromisoformat(p["fecha_devolucion"])
-                    self.prestamos.append(prestamo)
-        except FileNotFoundError:
-            pass
+                self.prestamos= json.load(f)
+               
