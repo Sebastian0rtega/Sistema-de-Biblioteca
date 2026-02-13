@@ -1,12 +1,13 @@
 class Usuario:
     def __init__(self,id_usuario,nombre,email):
         self.id_usuario = id_usuario
-        self.nombre = nombre
-        self.email = email
+        self.nombre = nombre.strip()
+        self.email = email.strip()
         self.libros_prestados = []
 
     def agregar_libro(self,libro):
-        self.libros_prestados.append(libro)
+        if libro not in self.libros_prestados:
+            self.libros_prestados.append(libro)
 
     def devolver_libro(self,libro):
         if libro in self.libros_prestados:
