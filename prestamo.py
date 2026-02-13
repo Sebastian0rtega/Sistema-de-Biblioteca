@@ -7,7 +7,7 @@ class Prestamo:
         self.fecha_prestamo = datetime.now()
         self.fecha_devolucion = None
 
-    def cerrar_pretamo(self):
+    def cerrar_prestamo(self):
         self.fecha_devolucion= datetime.now()
 
     def esta_activo(self):
